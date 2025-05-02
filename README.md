@@ -8,25 +8,16 @@ Big Mart sells a wide range of products across multiple stores in different citi
 📊 Dataset
 The dataset consists of historical sales data for products sold at different Big Mart outlets. It includes features like:
 
-Item Identifier
-
-Item Weight
-
-Item Fat Content
-
-Item Type
-
-Outlet Identifier
-
-Outlet Size
-
-Outlet Location Type
-
-Outlet Type
-
-Item MRP
-
-Years of Operation
+-Item Identifier
+-Item Weight
+-Item Fat Content
+-Item Type
+-Outlet Identifier
+-Outlet Size
+-Outlet Location Type
+-Outlet Type
+-Item MRP
+-Years of Operation
 
 ⚙️ Features & Techniques
 Exploratory Data Analysis (EDA)
@@ -54,10 +45,7 @@ Data Visualization using Matplotlib and Seaborn
 🧠 Model Used
 XGBoost Regressor: An optimized gradient boosting algorithm designed to be highly efficient and accurate, particularly for structured/tabular data.
 
-📈 Results
-R² Score: [Insert score here]
 
-RMSE: [Insert score here]
 
 ✍️ Author
 Prakash Harekant Jha
