@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>predict</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.css') }}">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css') }}">
+	<!-- animate css -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/meanmenu.min.css') }}">
+	<!-- main style -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	<!-- responsive -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+	<style>
+		.form-group input,
+.form-group select {
+    width: 100%; /* Ensure the input field takes up the full width */
+    padding: 10px; /* Padding inside the input field */
+    border-radius: 5px; /* Optional: Rounded corners */
+    border: 1px solid #ccc; /* Standard border styling */
+    box-sizing: border-box; /* Ensure padding and border do not increase the width */
+}
+		  /* Style for the button */
+		  .open-container {
+			position: relative;
+			text-align: center;
+		}
+
+	
+		.open-button {
+			background-color: #FF8C00;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+	
+		/* Popup form container */
+		.form-popup {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 500px; /* Adjust as needed */
+			background-color: #ABB0B8;
+			padding: 20px;
+			border-radius: 10px;
+			z-index: 9999;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+		}
+		.overlay {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			z-index: 999;
+		}
+	
+		/* Style the form inside the popup */
+		.form-container {
+			max-width: 100%;
+		}
+	
+		/* Close button */
+		.close {
+			color: #aaa;
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 28px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+	
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	
+		/* Center the h2 header */
+		.form-container h2 {
+			text-align: center;
+			color: white;
+			margin-bottom: 20px;
+		}
+	
+		/* Style form fields */
+		.form-group {
+			margin-bottom: 20px;
+		}
+	
+		.form-group label {
+			color: white;
+			display: block;
+			margin-bottom: 5px;
+		}
+	
+		.form-group input,
+		.form-group select {
+			width: 100%;
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			box-sizing: border-box; /* Ensure padding and border don't increase the width */
+		}
+	
+		.btn {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			color: white;
+		}
+	
+		.btn-primary {
+			background-color: #FF8C00;
+		}
+	
+		.btn-danger {
+			background-color: #f44336;
+		}
+		
+		/* Prediction popup */
+		/*	.prediction-popup {
+				display: none;
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 200px;
+				background-color: #fff;
+				padding: 20px;
+				border-radius: 10px;
+				z-index: 9999;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+			}
+			
+			.prediction-container {
+				text-align: center;
+			}
+			
+			.prediction-container h2 {
+				color: #333;
+				margin-bottom: 10px;
+			}
+			
+			.prediction-content {
+				/* Style prediction content if needed */
+			/*}
+			
+			.prediction-popup .overlay {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.5);
+				z-index: 998;
+			}
+			 End Prediction popup */
+			
+			 /* Style for the form border */
+#predictionForm {
+    border: 2px solid black; /* Add a black border around the form */
+    padding: 20px; /* Add padding inside the form */
+    border-radius: 5px; /* Optional: Rounded corners */
+    margin: 0 auto; /* Center the form horizontally */
+    max-width: 600px; /* Adjust the form width as desired */
+}
+
+/* Style for the form labels */
+.form-group label {
+    color: black; /* Change the label text color to black */
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Style for the prediction result */
+#predictionResult {
+    text-align: center; /* Center-align the text */
+    margin-top: 20px; /* Add space between the form and the prediction result */
+    padding: 20px; /* Add padding for spacing */
+    border: 2px solid black; /* Add a black border around the prediction result */
+    border-radius: 5px; /* Optional: Rounded corners */
+}
+
+#predictionResult h1 {
+    color: black; /* Set text color to black */
+    font-size: 48px; /* Increase the font size as desired */
+    font-weight: bold; /* Make the text bold (optional) */
+    margin: 0; /* Remove default margin */
+}
+
+
+
+
+
+	</style>
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	<!-- header -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a href="index.html">
+								<img src="assets/img/Big Mart.png" alt="">
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li class="current-list-item"><a href="#">Home</a>
+									
+								</li>
+								<li><a href="/about">About</a></li>
+								
+								<li><a href="/contact">Contact</a></li>
+								<li><a href="/cart">Predict</a>
+									
+								</li>
+								<li>
+									<div class="header-icons">
+										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+									</div>
+								</li>
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end header -->
+
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search arewa -->
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Predict future trends from insights</p>
+						<h1>Predict</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- cart -->
+	<div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="open-container">
+				<h2>Big Mart sales Prediction</h2>
+				<form id="predictionForm">
+					<div class="form-group">
+						<input type="text" name="item_weight" id="item_weight" class="form-control" required>
+						<label for="item_weight" class="ph-area">Enter Item Weight</label>
+					</div>
+					<div class="form-group">
+					  <select class="form-control" name="item_fat_content" required="required">
+						<option value="" selected>Item Fat Content</option>
+						<option value="1">Low Fat</option>
+						<option value="2">Regular</option>
+			<option value="0">High Fat</option>
+					  </select>
+					  <label for="item_fat_content" class="ph-area">Item_fat_content</label>
+					</div>
+			<div class="form-group">
+					  <input type="text" name="item_visibility" id="item_visibility" class="form-control" required>
+					  <label for="item_visibility" class="ph-area">Enter Item Visibility</label>
+					</div>
+	 
+	 
+					<div class="form-group">
+					  <select class="form-control chosenn" name="item_type" required="required">
+					</div>
+						<option value="" selected>Item Type</option>
+						<option value="0">Baking Goods</option>
+						<option value="1">Breads</option>
+						<option value="2">Breakfast</option>
+						<option value="3">Canned</option>
+			<option value="4">Dairy</option>
+						<option value="5">Frozen Foods</option>
+						<option value="6">Fruits and Vegetables</option>
+						<option value="7">Hard Drinks</option>
+			<option value="8">Health and Hygiene</option>
+						<option value="9">Household</option>
+						<option value="10">Meat</option>
+						<option value="11">Others</option>
+			<option value="12">Seafood</option>
+						<option value="13">Snack Foods</option>
+						<option value="14">Soft Drinks</option>
+						<option value="15">Starchy Foods</option>
+					  </select>
+					  </select>
+					  <label for="item_type" class="ph-area">Item_type</label>
+					</div>
+	 
+	 
+	 
+					<div class="form-group">
+					  <input type="text" name="item_mrp" id="item_mrp" class="form-control" required>
+					  <label for="item_mrp" class="ph-area">Enter Item MRP</label>
+					</div>
+	 
+				   <div class="form-group">
+					  <input type="text" name="outlet_establishment_year" id="outlet_establishment_year" class="form-control" required>
+					  <label for="outlet_establishment_year" class="ph-area">Outlet Establishment Year (YYYY)</label>
+					</div>
+	 
+	 
+	 
+						<div class="form-group">
+					  <select class="form-control chosenn" name="outlet_size" required="required">
+						<option value="" selected>outlet_size</option>
+						<option value="0">High</option>
+						<option value="1">Medium</option>
+						<option value="2">Small</option>
+					  </select>
+					  <label for="item_mrp" class="ph-area">Outlet_size</label>
+					</div>
+	 
+				   <div class="form-group">
+					  <select class="form-control chosenn" name="outlet_location_type" required="required">
+						<option value="" selected>outlet_location_type</option>
+						<option value="0">Tier 1</option>
+						<option value="1">Tier 2</option>
+						<option value="2">Tier 3</option>
+					  </select>
+					  <label for="outlet_location_type" class="ph-area">Outlet_location_type</label>
+					</div>
+	 
+					<div class="form-group">
+					  <select class="form-control chosenn" name="outlet_type" required="required">
+						<option value="" selected>outlet_type</option>
+						<option value="0">Grocery Store</option>
+						<option value="1">Supermarket Type1</option>
+						<option value="2">Supermarket Type2</option>
+			<option value="3">Supermarket Type3</option>
+					  </select>
+					  <label for="outlet_type" class="ph-area">Outlet_type</label>
+					</div>
+			
+					<!-- Add other form fields as needed -->
+			
+					<input type="submit" class="btn btn-primary" value="Submit">
+				</form>
+
+				</form>
+			</div>
+
+			<div id="predictionResult">
+				
+			</div>
+			
+		</div>
+	</div>
+	<!-- end cart -->
+	
+
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>st. John College of engineering and management, palghar</li>
+							<li>support@Predictsales.com</li>
+							<li>+00 111 222 3333</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates.</p>
+						<form action="index.html">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+	
+	
+
+		
+		
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>Copyrights &copy; 2024 - <a href="#">Prakash Jha</a>,  All Rights Reserved.<br>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+	
+	<!-- jquery -->
+	<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
+	<!-- bootstrap -->
+	<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+	<!-- count down -->
+	<script src="{{ url_for('static', filename='js/jquery.countdown.js') }}"></script>
+	<!-- isotope -->
+	<script src="{{ url_for('static', filename='js/jquery.isotope-3.0.6.min.js') }}"></script>
+	<!-- waypoints -->
+	<script src="{{ url_for('static', filename='js/waypoints.js') }}"></script>
+	<!-- owl carousel -->
+	<script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
+	<!-- magnific popup -->
+	<script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
+	<!-- mean menu -->
+	<script src="{{ url_for('static', filename='js/jquery.meanmenu.min.js') }}"></script>
+	<!-- sticker js -->
+	<script src="{{ url_for('static', filename='js/sticker.js') }}"></script>
+	<!-- main js -->
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+	
+</body> <script>
+	document.getElementById("predictionForm").addEventListener("submit", function(event) {
+		event.preventDefault(); // Prevent default form submission
+
+		// Gather form data
+		var formData = new FormData(this);
+
+		// Send AJAX request to Flask server
+		fetch("/predict", {
+			method: "POST",
+			body: formData
+		})
+		.then(response => response.json())
+		.then(data => {
+			// Update the predictionResult div with the prediction result
+			document.getElementById("predictionResult").innerHTML = `<h1>Prediction: ${data.Prediction.toFixed(2)}</h1>`;
+		})
+		.catch(error => {
+			console.error("Error:", error);
+		});
+	});
+</script>
+</html>
